@@ -54,26 +54,27 @@ namespace TreeRoutine.Routine.FlaskMacroRoutine
 
             var rootMenu = MenuPlugin.AddChild(mainMenu, PluginName, Settings.Enable);
 
-            MenuItem parent;
-            MenuItem tmpNode;
+            var flaskParent = MenuPlugin.AddChild(rootMenu, "Flask Settings ");
 
             for (int i = 0; i < 5; i++)
             {
-                parent = MenuPlugin.AddChild(rootMenu, "Flask " + (i + 1) + " Settings",
+                var parent = MenuPlugin.AddChild(flaskParent, "Flask " + (i + 1) + " Settings",
                     Settings.FlaskSettings[i].Enable);
                 parent.TooltipText = "Enables the macro";
 
-                tmpNode = MenuPlugin.AddChild(parent, "Hotkey", Settings.FlaskSettings[i].Hotkey);
+                var tmpNode = MenuPlugin.AddChild(parent, "Hotkey", Settings.FlaskSettings[i].Hotkey);
                 tmpNode.TooltipText = "Path of Exile key for flask in this slot";
             }
 
+            var macroParent = MenuPlugin.AddChild(rootMenu, "Macro Settings ");
+
             for (int i = 0; i < 5; i++)
             {
-                parent = MenuPlugin.AddChild(rootMenu, "Macro " + (i + 1) + " Settings",
+                var parent = MenuPlugin.AddChild(macroParent, "Macro " + (i + 1),
                     Settings.MacroSettings[i].Enable);
-                parent.TooltipText = "Enables the macro";
+                macroParent.TooltipText = "Enables the macro";
 
-                tmpNode = MenuPlugin.AddChild(parent, "Macro hotkey", Settings.MacroSettings[i].Hotkey);
+                var tmpNode = MenuPlugin.AddChild(parent, "Macro hotkey", Settings.MacroSettings[i].Hotkey);
                 tmpNode.TooltipText = "Hotkey for using the flask";
 
                 tmpNode = MenuPlugin.AddChild(parent, "Flask 1 Enable", Settings.MacroSettings[i].UseFlask1);
@@ -90,17 +91,16 @@ namespace TreeRoutine.Routine.FlaskMacroRoutine
 
                 tmpNode = MenuPlugin.AddChild(parent, "Flask 5 Enable", Settings.MacroSettings[i].UseFlask5);
                 tmpNode.TooltipText = "Enables using Flask 5 for this macro";
-
             }
 
-            parent = MenuPlugin.AddChild(rootMenu, "Tick Rate", Settings.TickRate);
-            parent.TooltipText = "Milliseconds between every tick of plugin.";
+            var item = MenuPlugin.AddChild(rootMenu, "Tick Rate", Settings.TickRate);
+            item.TooltipText = "Milliseconds between every tick of plugin.";
 
-            parent = MenuPlugin.AddChild(rootMenu, "Strict Tick Rate", Settings.StrictTickRate);
-            parent.TooltipText = "Enable to force a strict tick rate. This will ensure the ticks are at a constant timing, but may cause ticks to overlap as the previous tick may not have finished. Enable only if you have a reason to.";
+            item = MenuPlugin.AddChild(rootMenu, "Strict Tick Rate", Settings.StrictTickRate);
+            item.TooltipText = "Enable to force a strict tick rate. This will ensure the ticks are at a constant timing, but may cause ticks to overlap as the previous tick may not have finished. Enable only if you have a reason to.";
 
-            parent = MenuPlugin.AddChild(rootMenu, "Debug", Settings.Debug);
-            parent.TooltipText = "Enables debug logging to help debug flask issues.";
+            item = MenuPlugin.AddChild(rootMenu, "Debug", Settings.Debug);
+            item.TooltipText = "Enables debug logging to help debug flask issues.";
 
         }
     }

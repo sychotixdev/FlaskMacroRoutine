@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -53,13 +55,13 @@
       <Project>{2975c63d-6c9a-4824-a619-380994a19ece}</Project>
       <Name>TreeRoutine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PoEHUD\src\PoeHUD.csproj">
+      <Project>{e86368b2-ae1e-4489-a749-e29a0ab48f83}</Project>
+      <Name>PoeHUD</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TreeSharp\TreeSharp.csproj">
       <Project>{0efb3180-8092-494f-b42f-443b77034f67}</Project>
       <Name>TreeSharp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PoEHUD\src\PoeHUD.csproj">
-      <Project>{E86368B2-AE1E-4489-A749-E29A0AB48F83}</Project>
-      <Name>PoeHUD</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
