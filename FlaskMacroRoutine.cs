@@ -1,4 +1,6 @@
-﻿using PoeHUD.Hud.Menu;
+﻿using PoeHUD.Framework;
+using PoeHUD.Framework.Helpers;
+using PoeHUD.Hud.Menu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,9 @@ namespace TreeRoutine.Routine.FlaskMacroRoutine
     {
         private KeyboardHelper KeyboardHelper { get; set; } = null;
 
+        public Composite Tree { get; set; }
+        private Coroutine TreeCoroutine { get; set; }
+
         public override void Initialise()
         {
             base.Initialise();
@@ -22,6 +27,21 @@ namespace TreeRoutine.Routine.FlaskMacroRoutine
             KeyboardHelper = new KeyboardHelper(GameController);
 
             Tree = createTree();
+
+            // Add this as a coroutine for this plugin
+            TreeCoroutine = (new Coroutine(() => TickTree(Tree)
+            , new WaitTime(1000 / Settings.TicksPerSecond), nameof(FlaskMacroRoutine), "FlaskMacroRoutine Tree"))
+                .AutoRestart(GameController.CoroutineRunner).Run();
+
+            Settings.TicksPerSecond.OnValueChanged += UpdateCoroutineWaitRender;
+        }
+
+        private void UpdateCoroutineWaitRender()
+        {
+            if (TreeCoroutine != null)
+            {
+                TreeCoroutine.UpdateCondtion(new WaitTime(1000 / Settings.TicksPerSecond));
+            }
         }
 
         private Composite createTree()
@@ -51,7 +71,6 @@ namespace TreeRoutine.Routine.FlaskMacroRoutine
 
         public override void InitialiseMenu(MenuItem mainMenu)
         {
-
             var rootMenu = MenuPlugin.AddChild(mainMenu, PluginName, Settings.Enable);
 
             var flaskParent = MenuPlugin.AddChild(rootMenu, "Flask Settings ");
@@ -93,11 +112,8 @@ namespace TreeRoutine.Routine.FlaskMacroRoutine
                 tmpNode.TooltipText = "Enables using Flask 5 for this macro";
             }
 
-            var item = MenuPlugin.AddChild(rootMenu, "Tick Rate", Settings.TickRate);
-            item.TooltipText = "Milliseconds between every tick of plugin.";
-
-            item = MenuPlugin.AddChild(rootMenu, "Strict Tick Rate", Settings.StrictTickRate);
-            item.TooltipText = "Enable to force a strict tick rate. This will ensure the ticks are at a constant timing, but may cause ticks to overlap as the previous tick may not have finished. Enable only if you have a reason to.";
+            var item = MenuPlugin.AddChild(rootMenu, "Ticks Per Second", Settings.TicksPerSecond);
+            item.TooltipText = "Specifies number of oticks per second";
 
             item = MenuPlugin.AddChild(rootMenu, "Debug", Settings.Debug);
             item.TooltipText = "Enables debug logging to help debug flask issues.";

@@ -51,7 +51,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NewFlaskManager\TreeRoutine.csproj">
+    <ProjectReference Include="..\BaseTreeRoutine\TreeRoutine.csproj">
       <Project>{2975c63d-6c9a-4824-a619-380994a19ece}</Project>
       <Name>TreeRoutine</Name>
     </ProjectReference>

@@ -30,5 +30,7 @@ namespace TreeRoutine.Routine.FlaskMacroRoutine
 
         public FlaskSettings[] FlaskSettings { get; set; } = new FlaskSettings[5];
         public MacroSettings[] MacroSettings { get; set; } = new MacroSettings[5];
+        public RangeNode<int> TicksPerSecond { get; set; } = new RangeNode<int>(10, 1, 30);
+
     }
 }
