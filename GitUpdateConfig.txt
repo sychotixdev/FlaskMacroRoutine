@@ -1,0 +1,9 @@
+Owner: sychotixdev
+Name: FlaskMacroRoutine
+Repository
+
+Ignore:
+src
+.gitignore
+README.md
+LICENSE

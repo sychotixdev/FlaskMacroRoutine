@@ -1,6 +1,8 @@
-﻿using PoeHUD.Framework;
+﻿using ImGuiNET;
+using PoeHUD.Framework;
 using PoeHUD.Framework.Helpers;
 using PoeHUD.Hud.Menu;
+using PoeHUD.Hud.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,55 +71,63 @@ namespace TreeRoutine.Routine.FlaskMacroRoutine
                     ));
         }
 
-        public override void InitialiseMenu(MenuItem mainMenu)
+        public override void DrawSettingsMenu()
         {
-            var rootMenu = MenuPlugin.AddChild(mainMenu, PluginName, Settings.Enable);
-
-            var flaskParent = MenuPlugin.AddChild(rootMenu, "Flask Settings ");
 
             for (int i = 0; i < 5; i++)
             {
-                var parent = MenuPlugin.AddChild(flaskParent, "Flask " + (i + 1) + " Settings",
-                    Settings.FlaskSettings[i].Enable);
-                parent.TooltipText = "Enables the macro";
+                if (ImGui.TreeNode("Flask " + (i + 1) + " Settings"))
+                {
+                    Settings.FlaskSettings[i].Enable = ImGuiExtension.Checkbox("Enable", Settings.FlaskSettings[i].Enable);
+                    ImGuiExtension.ToolTip("Enables the macro");
 
-                var tmpNode = MenuPlugin.AddChild(parent, "Hotkey", Settings.FlaskSettings[i].Hotkey);
-                tmpNode.TooltipText = "Path of Exile key for flask in this slot";
+                    Settings.FlaskSettings[i].Hotkey = ImGuiExtension.HotkeySelector("Hotkey", "Flask Hotkey", Settings.FlaskSettings[i].Hotkey);
+                    ImGuiExtension.ToolTip("Path of Exile key for flask in this slot");
+
+                    ImGui.TreePop();
+                }    
             }
 
-            var macroParent = MenuPlugin.AddChild(rootMenu, "Macro Settings ");
-
-            for (int i = 0; i < 5; i++)
+            if (ImGui.TreeNode("Macro Settings"))
             {
-                var parent = MenuPlugin.AddChild(macroParent, "Macro " + (i + 1),
-                    Settings.MacroSettings[i].Enable);
-                macroParent.TooltipText = "Enables the macro";
+                for (int i = 0; i < 5; i++)
+                {
+                    if (ImGui.TreeNode("Macro " + (i + 1)))
+                    {
+                        Settings.MacroSettings[i].Enable = ImGuiExtension.Checkbox("Enable", Settings.MacroSettings[i].Enable);
+                        ImGuiExtension.ToolTip("Enables the macro");
 
-                var tmpNode = MenuPlugin.AddChild(parent, "Macro hotkey", Settings.MacroSettings[i].Hotkey);
-                tmpNode.TooltipText = "Hotkey for using the flask";
+                        Settings.MacroSettings[i].UseFlask1 = ImGuiExtension.Checkbox("Flask 1 Enable", Settings.MacroSettings[i].UseFlask1);
+                        ImGuiExtension.ToolTip("Enables using Flask 1 for this macro");
 
-                tmpNode = MenuPlugin.AddChild(parent, "Flask 1 Enable", Settings.MacroSettings[i].UseFlask1);
-                tmpNode.TooltipText = "Enables using Flask 1 for this macro";
+                        Settings.MacroSettings[i].UseFlask2 = ImGuiExtension.Checkbox("Flask 2 Enable", Settings.MacroSettings[i].UseFlask2);
+                        ImGuiExtension.ToolTip("Enables using Flask 2 for this macro");
 
-                tmpNode = MenuPlugin.AddChild(parent, "Flask 2 Enable", Settings.MacroSettings[i].UseFlask2);
-                tmpNode.TooltipText = "Enables using Flask 2 for this macro";
+                        Settings.MacroSettings[i].UseFlask3 = ImGuiExtension.Checkbox("Flask 3 Enable", Settings.MacroSettings[i].UseFlask3);
+                        ImGuiExtension.ToolTip("Enables using Flask 3 for this macro");
 
-                tmpNode = MenuPlugin.AddChild(parent, "Flask 3 Enable", Settings.MacroSettings[i].UseFlask3);
-                tmpNode.TooltipText = "Enables using Flask 3 for this macro";
 
-                tmpNode = MenuPlugin.AddChild(parent, "Flask 4 Enable", Settings.MacroSettings[i].UseFlask4);
-                tmpNode.TooltipText = "Enables using Flask 4 for this macro";
+                        Settings.MacroSettings[i].UseFlask4 = ImGuiExtension.Checkbox("Flask 4 Enable", Settings.MacroSettings[i].UseFlask4);
+                        ImGuiExtension.ToolTip("Enables using Flask 4 for this macro");
 
-                tmpNode = MenuPlugin.AddChild(parent, "Flask 5 Enable", Settings.MacroSettings[i].UseFlask5);
-                tmpNode.TooltipText = "Enables using Flask 5 for this macro";
+                        Settings.MacroSettings[i].UseFlask5 = ImGuiExtension.Checkbox("Flask 5 Enable", Settings.MacroSettings[i].UseFlask5);
+                        ImGuiExtension.ToolTip("Enables using Flask 5 for this macro");
+
+                        ImGui.TreePop();
+                    }
+
+                    Settings.MacroSettings[i].Hotkey = ImGuiExtension.HotkeySelector("Hotkey", "Macro hotkey", Settings.MacroSettings[i].Hotkey);
+                    ImGuiExtension.ToolTip("Hotkey for using the flask");
+                }
+
+                ImGui.TreePop();
             }
 
-            var item = MenuPlugin.AddChild(rootMenu, "Ticks Per Second", Settings.TicksPerSecond);
-            item.TooltipText = "Specifies number of oticks per second";
+            Settings.TicksPerSecond.Value = ImGuiExtension.IntSlider("Ticks Per Second", Settings.TicksPerSecond);
+            ImGuiExtension.ToolTip("Specifies number of ticks per second");
 
-            item = MenuPlugin.AddChild(rootMenu, "Debug", Settings.Debug);
-            item.TooltipText = "Enables debug logging to help debug flask issues.";
-
+            Settings.Debug = ImGuiExtension.Checkbox("Debug", Settings.Debug);
+            ImGuiExtension.ToolTip("Enables debug logging to help debug flask issues.");
         }
     }
 }
