@@ -11,6 +11,11 @@ namespace TreeRoutine.Routine.FlaskMacroRoutine
 {
     public class FlaskSettings
     {
+        public FlaskSettings()
+        {
+
+        }
+
         public FlaskSettings(Boolean enable, Keys hotkey)
         {
             Enable = enable;

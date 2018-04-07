@@ -71,6 +71,11 @@ namespace TreeRoutine.Routine.FlaskMacroRoutine
                     ));
         }
 
+        public override void InitializeSettingsMenu()
+        {
+
+        }
+
         public override void DrawSettingsMenu()
         {
 
@@ -81,7 +86,7 @@ namespace TreeRoutine.Routine.FlaskMacroRoutine
                     Settings.FlaskSettings[i].Enable = ImGuiExtension.Checkbox("Enable", Settings.FlaskSettings[i].Enable);
                     ImGuiExtension.ToolTip("Enables the macro");
 
-                    Settings.FlaskSettings[i].Hotkey = ImGuiExtension.HotkeySelector("Hotkey", "Flask Hotkey", Settings.FlaskSettings[i].Hotkey);
+                    Settings.FlaskSettings[i].Hotkey.Value = ImGuiExtension.HotkeySelector("Hotkey", "Flask Hotkey", Settings.FlaskSettings[i].Hotkey);
                     ImGuiExtension.ToolTip("Path of Exile key for flask in this slot");
 
                     ImGui.TreePop();

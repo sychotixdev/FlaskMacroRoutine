@@ -11,6 +11,11 @@ namespace TreeRoutine.Routine.FlaskMacroRoutine
 {
     public class MacroSettings
     {
+        public MacroSettings()
+        {
+
+        }
+
         public MacroSettings(Boolean enable, Keys hotkey)
         {
             Enable = enable;
