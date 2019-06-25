@@ -22,7 +22,7 @@ namespace TreeRoutine.Routine.FlaskMacroRoutine
             Hotkey = hotkey;
         }
 
-        public ToggleNode Enable { get; set; }
-        public HotkeyNode Hotkey { get; set; }
+        public ToggleNode Enable { get; set; } = new ToggleNode();
+        public HotkeyNode Hotkey { get; set; } = new HotkeyNode();
     }
 }

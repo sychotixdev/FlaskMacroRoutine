@@ -1,15 +1,9 @@
 ﻿using ImGuiNET;
 using PoeHUD.Framework;
 using PoeHUD.Framework.Helpers;
-using PoeHUD.Hud.Menu;
-using PoeHUD.Hud.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TreeRoutine.DefaultBehaviors.Actions;
 using TreeRoutine.DefaultBehaviors.Helpers;
+using TreeRoutine.Menu;
 using TreeRoutine.TreeSharp;
 
 namespace TreeRoutine.Routine.FlaskMacroRoutine
@@ -83,10 +77,10 @@ namespace TreeRoutine.Routine.FlaskMacroRoutine
             {
                 if (ImGui.TreeNode("Flask " + (i + 1) + " Settings"))
                 {
-                    Settings.FlaskSettings[i].Enable = ImGuiExtension.Checkbox("Enable", Settings.FlaskSettings[i].Enable);
+                    Settings.FlaskSettings[i].Enable.Value = ImGuiExtension.Checkbox("Enable", Settings.FlaskSettings[i].Enable);
                     ImGuiExtension.ToolTip("Enables the macro");
 
-                    Settings.FlaskSettings[i].Hotkey.Value = ImGuiExtension.HotkeySelector("Hotkey", "Flask Hotkey", Settings.FlaskSettings[i].Hotkey);
+                    Settings.FlaskSettings[i].Hotkey.Value = ImGuiExtension.HotkeySelector("Flask Hotkey", "Flask Hotkey", Settings.FlaskSettings[i].Hotkey);
                     ImGuiExtension.ToolTip("Path of Exile key for flask in this slot");
 
                     ImGui.TreePop();
@@ -99,29 +93,29 @@ namespace TreeRoutine.Routine.FlaskMacroRoutine
                 {
                     if (ImGui.TreeNode("Macro " + (i + 1)))
                     {
-                        Settings.MacroSettings[i].Enable = ImGuiExtension.Checkbox("Enable", Settings.MacroSettings[i].Enable);
+                        Settings.MacroSettings[i].Enable.Value = ImGuiExtension.Checkbox("Enable", Settings.MacroSettings[i].Enable);
                         ImGuiExtension.ToolTip("Enables the macro");
 
-                        Settings.MacroSettings[i].UseFlask1 = ImGuiExtension.Checkbox("Flask 1 Enable", Settings.MacroSettings[i].UseFlask1);
+                        Settings.MacroSettings[i].UseFlask1.Value = ImGuiExtension.Checkbox("Flask 1 Enable", Settings.MacroSettings[i].UseFlask1);
                         ImGuiExtension.ToolTip("Enables using Flask 1 for this macro");
 
-                        Settings.MacroSettings[i].UseFlask2 = ImGuiExtension.Checkbox("Flask 2 Enable", Settings.MacroSettings[i].UseFlask2);
+                        Settings.MacroSettings[i].UseFlask2.Value = ImGuiExtension.Checkbox("Flask 2 Enable", Settings.MacroSettings[i].UseFlask2);
                         ImGuiExtension.ToolTip("Enables using Flask 2 for this macro");
 
-                        Settings.MacroSettings[i].UseFlask3 = ImGuiExtension.Checkbox("Flask 3 Enable", Settings.MacroSettings[i].UseFlask3);
+                        Settings.MacroSettings[i].UseFlask3.Value = ImGuiExtension.Checkbox("Flask 3 Enable", Settings.MacroSettings[i].UseFlask3);
                         ImGuiExtension.ToolTip("Enables using Flask 3 for this macro");
 
 
-                        Settings.MacroSettings[i].UseFlask4 = ImGuiExtension.Checkbox("Flask 4 Enable", Settings.MacroSettings[i].UseFlask4);
+                        Settings.MacroSettings[i].UseFlask4.Value = ImGuiExtension.Checkbox("Flask 4 Enable", Settings.MacroSettings[i].UseFlask4);
                         ImGuiExtension.ToolTip("Enables using Flask 4 for this macro");
 
-                        Settings.MacroSettings[i].UseFlask5 = ImGuiExtension.Checkbox("Flask 5 Enable", Settings.MacroSettings[i].UseFlask5);
+                        Settings.MacroSettings[i].UseFlask5.Value = ImGuiExtension.Checkbox("Flask 5 Enable", Settings.MacroSettings[i].UseFlask5);
                         ImGuiExtension.ToolTip("Enables using Flask 5 for this macro");
 
                         ImGui.TreePop();
                     }
 
-                    Settings.MacroSettings[i].Hotkey = ImGuiExtension.HotkeySelector("Hotkey", "Macro hotkey", Settings.MacroSettings[i].Hotkey);
+                    Settings.MacroSettings[i].Hotkey.Value = ImGuiExtension.HotkeySelector($"Macro Hotkey {i+1}", $"Macro Hotkey {i + 1}", Settings.MacroSettings[i].Hotkey);
                     ImGuiExtension.ToolTip("Hotkey for using the flask");
                 }
 
@@ -131,7 +125,7 @@ namespace TreeRoutine.Routine.FlaskMacroRoutine
             Settings.TicksPerSecond.Value = ImGuiExtension.IntSlider("Ticks Per Second", Settings.TicksPerSecond);
             ImGuiExtension.ToolTip("Specifies number of ticks per second");
 
-            Settings.Debug = ImGuiExtension.Checkbox("Debug", Settings.Debug);
+            Settings.Debug.Value = ImGuiExtension.Checkbox("Debug", Settings.Debug);
             ImGuiExtension.ToolTip("Enables debug logging to help debug flask issues.");
         }
     }
