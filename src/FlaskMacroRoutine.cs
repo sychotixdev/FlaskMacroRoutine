@@ -48,7 +48,7 @@ namespace TreeRoutine.Routine.FlaskMacroRoutine
 
         private Composite createTree()
         {
-            return new Decorator(x => TreeHelper.canTick(),
+            return new Decorator(x => TreeHelper.CanTick(),
                     new PrioritySelector(
                     CreateMacroHotkeyComposite(0),
                     CreateMacroHotkeyComposite(1),
